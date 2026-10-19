@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Solution Nautique – Site et gestion pour loueurs de bateaux, 50 € HT/mois</title>
+  <meta name="description" content="Site vitrine avec réservation en ligne, dashboard de gestion de flotte et localisation par téléphone pendant la sortie en mer. 50 € HT par mois, sans frais d'installation.">
+  <meta name="theme-color" content="#0a6f8f">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:title" content="Solution Nautique – Votre site de location et toute votre flotte dans un seul outil">
+  <meta property="og:description" content="Réservation en ligne, planning, flotte, cautions, carte en mer et suivi des bateaux. 50 € HT/mois, sans frais d'installation.">
+  <meta property="og:image" content="assets/img/dash-sea.webp">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="styles.css">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+
+<body>
+  <!-- Icônes -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+      <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+      <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></symbol>
+      <symbol id="i-anchor" viewBox="0 0 24 24"><path d="M12 22V8"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/><circle cx="12" cy="5" r="3"/></symbol>
+      <symbol id="i-sailboat" viewBox="0 0 24 24"><path d="M22 18H2a4 4 0 0 0 4 4h12a4 4 0 0 0 4-4Z"/><path d="M21 14 10 2 3 14h18Z"/><path d="M10 2v16"/></symbol>
+      <symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16.24 7.76-1.8 5.41a2 2 0 0 1-1.27 1.27L7.76 16.24l1.8-5.41a2 2 0 0 1 1.27-1.27z"/></symbol>
+      <symbol id="i-nav" viewBox="0 0 24 24"><path d="m3 11 19-9-9 19-2-8-8-2z"/></symbol>
+      <symbol id="i-locate" viewBox="0 0 24 24"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2.5"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></symbol>
+      <symbol id="i-map" viewBox="0 0 24 24"><path d="M14.1 5.55a2 2 0 0 0 1.8 0l3.65-1.83A1 1 0 0 1 21 4.62v12.76a1 1 0 0 1-.55.9l-4.55 2.27a2 2 0 0 1-1.8 0l-4.2-2.1a2 2 0 0 0-1.8 0l-3.65 1.83A1 1 0 0 1 3 19.38V6.62a1 1 0 0 1 .55-.9L8.1 3.45a2 2 0 0 1 1.8 0z"/><path d="M15 5.76v15M9 3.24v15"/></symbol>
+      <symbol id="i-route" viewBox="0 0 24 24"><circle cx="6" cy="19" r="3"/><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"/><circle cx="18" cy="5" r="3"/></symbol>
+      <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></symbol>
+      <symbol id="i-radio" viewBox="0 0 24 24"><path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9"/><path d="M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.5"/><circle cx="12" cy="12" r="2"/><path d="M16.2 7.8c2.3 2.3 2.3 6.1 0 8.5"/><path d="M19.1 4.9C23 8.8 23 15.1 19.1 19"/></symbol>
+      <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+      <symbol id="i-euro" viewBox="0 0 24 24"><path d="M4 10h12M4 14h9"/><path d="M19 6a7.7 7.7 0 0 0-5.2-2A7.9 7.9 0 0 0 6 12c0 4.4 3.5 8 7.8 8 2 0 3.8-.8 5.2-2"/></symbol>
+      <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20M2 12h20"/></symbol>
+      <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+      <symbol id="i-mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
+      <symbol id="i-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></symbol>
+      <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></symbol>
+      <symbol id="i-dashboard" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></symbol>
+      <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+      <symbol id="i-key" viewBox="0 0 24 24"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6M15.5 7.5l3 3L22 7l-3-3"/></symbol>
+      <symbol id="i-clipboard" viewBox="0 0 24 24"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/></symbol>
+      <symbol id="i-fuel" viewBox="0 0 24 24"><path d="M3 22h12M4 9h10"/><path d="M14 22V4a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v18"/><path d="M14 13h2a2 2 0 0 1 2 2v2a2 2 0 0 0 4 0V9.83a2 2 0 0 0-.59-1.42L18 5"/></symbol>
+      <symbol id="i-camera" viewBox="0 0 24 24"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></symbol>
+      <symbol id="i-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4M12 17h.01"/></symbol>
+      <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol>
+      <symbol id="i-file" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4M10 9H8M16 13H8M16 17H8"/></symbol>
+      <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></symbol>
+      <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+      <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+      <symbol id="i-external" viewBox="0 0 24 24"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></symbol>
+      <symbol id="i-phone-device" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></symbol>
+      <symbol id="i-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+      <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></symbol>
+      <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M18 17V9M13 17V5M8 17v-3"/></symbol>
+      <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    </defs>
+  </svg>
+
+  <a class="skip" href="#contenu">Aller au contenu</a>
+
+  <!-- En-tête -->
+  <header class="header" id="header">
+    <div class="container header__inner">
+      <a class="brand" href="#top" aria-label="Solution Nautique, retour en haut">
+        <img src="assets/favicon.svg" width="40" height="40" alt="">
+        <span class="brand__name">Solution<strong>Nautique</strong><small>Site + gestion de location de bateaux</small></span>
+      </a>
+      <nav class="nav" id="nav" aria-label="Navigation principale">
+        <a href="#localisation">Localisation</a>
+        <a href="#site">Site vitrine</a>
+        <a href="#dashboard">Gestion</a>
+        <a href="#reference">Démo</a>
+        <a href="#tarif">Tarif</a>
+        <a href="#faq">Questions</a>
+        <a class="btn btn--primary nav__cta" href="#contact">Demander mon site</a>
+      </nav>
+      <div class="header__actions">
+        <a class="btn btn--primary header__cta" href="#contact">Demander mon site</a>
+        <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="nav" aria-label="Ouvrir le menu">
+          <svg class="i"><use href="#i-menu"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="contenu">
+    <!-- Hero -->
+    <section class="hero" id="top">
+      <div class="container hero__grid">
+        <div class="hero__copy reveal">
+          <p class="eyebrow eyebrow--dark"><span class="dot"></span>Loueurs de bateaux · bases nautiques · sorties en mer</p>
+          <h1>Votre site de location et <em>toute votre flotte</em>, pilotés depuis un seul outil.</h1>
+          <p class="lead">Un site vitrine qui prend les réservations, un dashboard qui gère planning, bateaux et cautions, et la localisation par téléphone pendant toute la sortie.</p>
+          <div class="hero__price">
+            <strong>50 € <small>HT / mois</small></strong>
+            <span>Sans frais d'installation<br>ni frais de création de site</span>
+          </div>
+          <div class="hero__ctas">
+            <a class="btn btn--primary btn--lg" href="#localisation"><svg class="i"><use href="#i-locate"/></svg>Voir la localisation</a>
+            <a class="btn btn--glass btn--lg" href="#tarif">Voir l'offre<svg class="i"><use href="#i-arrow"/></svg></a>
+          </div>
+          <ul class="hero__chips">
+            <li><svg class="i"><use href="#i-check"/></svg>Site + dashboard inclus</li>
+            <li><svg class="i"><use href="#i-check"/></svg>Carte en mer pour vos clients</li>
+            <li><svg class="i"><use href="#i-check"/></svg>Une seule formule</li>
+          </ul>
+        </div>
+
+        <div class="hero__visual reveal reveal--late">
+          <figure class="browser browser--hero">
+            <div class="browser__bar" aria-hidden="true"><i></i><i></i><i></i><span>votre-location.fr/dashboard</span></div>
+            <img src="assets/img/dash-sea.webp" width="1600" height="1000" alt="Onglet En mer du dashboard : carte des bateaux du jour, trajets et temps de retour au port">
+          </figure>
+          <figure class="phone phone--hero">
+            <img src="assets/img/nav-live.webp" width="640" height="1385" alt="Carte en mer sur le téléphone du client : position, fin de location, distance et temps de retour au port">
+          </figure>
+          <div class="float-chip float-chip--a" aria-hidden="true">
+            <span class="float-chip__icon float-chip__icon--warn"><svg class="i"><use href="#i-clock"/></svg></span>
+            <span><strong>CAIPI doit rentrer</strong>Retour au port ≈ 21 min</span>
+          </div>
+          <div class="float-chip float-chip--b" aria-hidden="true">
+            <span class="float-chip__icon float-chip__icon--ok"><svg class="i"><use href="#i-radio"/></svg></span>
+            <span><strong>Suivi GPS actif</strong>Position il y a 1 min</span>
+          </div>
+          <p class="hero__caption">Exemple réel : JJ Location Bateaux · données de démonstration</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Fonctionnement -->
+    <section class="section flow" aria-labelledby="flow-title">
+      <div class="container">
+        <div class="section__head reveal">
+          <p class="eyebrow">De la réservation au retour au port</p>
+          <h2 id="flow-title">Une sortie en mer, suivie du début à la fin.</h2>
+          <p>Le site, le dashboard et la carte en mer partagent les mêmes données : pas de double saisie, pas de tableau à tenir à côté.</p>
+        </div>
+        <ol class="flow__steps">
+          <li class="flow__step reveal">
+            <span class="flow__num">1</span>
+            <svg class="i i--xl"><use href="#i-calendar"/></svg>
+            <h3>Le client réserve</h3>
+            <p>Il choisit un bateau, un créneau et ses options sur votre site, selon les disponibilités réelles.</p>
+          </li>
+          <li class="flow__step reveal">
+            <span class="flow__num">2</span>
+            <svg class="i i--xl"><use href="#i-clipboard"/></svg>
+            <h3>Vous validez</h3>
+            <p>Permis, pièce d'identité, caution et paiement sont contrôlés dans une seule fiche.</p>
+          </li>
+          <li class="flow__step reveal">
+            <span class="flow__num">3</span>
+            <svg class="i i--xl"><use href="#i-compass"/></svg>
+            <h3>Il navigue serein</h3>
+            <p>Sur son téléphone : carte officielle, temps de retour au port et rappels avant la fin.</p>
+          </li>
+          <li class="flow__step reveal">
+            <span class="flow__num">4</span>
+            <svg class="i i--xl"><use href="#i-anchor"/></svg>
+            <h3>Vous suivez la flotte</h3>
+            <p>Positions partagées, bateaux qui doivent rentrer, carburant et caution au retour.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Localisation -->
+    <section class="section section--dark loc" id="localisation" aria-labelledby="loc-title">
+      <div class="container">
+        <div class="section__head section__head--dark reveal">
+          <p class="eyebrow eyebrow--dark"><svg class="i"><use href="#i-locate"/></svg>La fonctionnalité à part : localisation par téléphone</p>
+          <h2 id="loc-title">Chacun sait où il est, pendant toute la location.</h2>
+          <p>Le téléphone du client devient un outil de navigation simple, et votre équipe voit les bateaux en mer sur une carte, avec l'heure de chaque position.</p>
+        </div>
+
+        <div class="loc__phones reveal">
+          <figure class="loc__phone">
+            <div class="phone"><img src="assets/img/nav-live.webp" width="640" height="1385" alt="Carte en mer : position du bateau, fin de location, distance et temps de retour au port, règle des 300 mètres" loading="lazy"></div>
+            <figcaption><strong>Position et retour</strong>Fin de location, distance et temps de retour au port par la mer.</figcaption>
+          </figure>
+          <figure class="loc__phone">
+            <div class="phone"><img src="assets/img/nav-route.webp" width="640" height="1385" alt="Itinéraire de retour vers le port tracé sur l'eau, en contournant la côte" loading="lazy"></div>
+            <figcaption><strong>Cap sur le port</strong>Le trajet de retour est calculé sur l'eau, en contournant la côte et les îles.</figcaption>
+          </figure>
+          <figure class="loc__phone">
+            <div class="phone"><img src="assets/img/nav-anchor.webp" width="640" height="1385" alt="Réponse à la question Puis-je jeter l'ancre ici : fond de sable, hors zone interdite" loading="lazy"></div>
+            <figcaption><strong>« Puis-je jeter l'ancre ici ? »</strong>Zone interdite, posidonie ou sable : la réponse à l'endroit exact.</figcaption>
+          </figure>
+        </div>
+
+        <div class="loc__cards">
+          <article class="loc-card reveal">
+            <div class="loc-card__head">
+              <span class="loc-card__icon"><svg class="i"><use href="#i-pin"/></svg></span>
+              <h3>A. Rejoindre le port</h3>
+            </div>
+            <ul class="status-list">
+              <li class="is-on"><span>Disponible</span>Itinéraire vers le port de départ en un geste depuis le site</li>
+              <li class="is-on"><span>Disponible</span>Point de rendez-vous rappelé dans l'e-mail de confirmation</li>
+              <li class="is-soon"><span>Bientôt</span>Bouton « Me localiser » : position du client et itinéraire sur la carte</li>
+              <li class="is-soon"><span>Bientôt</span>Lien de localisation ou consignes envoyés par votre équipe</li>
+            </ul>
+          </article>
+          <article class="loc-card reveal">
+            <div class="loc-card__head">
+              <span class="loc-card__icon"><svg class="i"><use href="#i-compass"/></svg></span>
+              <h3>B. Naviguer en sécurité</h3>
+            </div>
+            <ul class="status-list">
+              <li class="is-on"><span>Disponible</span>Carte officielle du Parc : zones interdites, mouillage, bande des 300 m</li>
+              <li class="is-on"><span>Disponible</span>Alertes de zone et de vitesse, rappels avant la fin de la location</li>
+              <li class="is-on"><span>Disponible</span>Appeler le loueur ou les secours (196) depuis la carte</li>
+              <li class="is-on"><span>Disponible</span>Suivi écran éteint avec l'application Android</li>
+            </ul>
+          </article>
+          <article class="loc-card reveal">
+            <div class="loc-card__head">
+              <span class="loc-card__icon"><svg class="i"><use href="#i-radio"/></svg></span>
+              <h3>C. Suivre la flotte</h3>
+            </div>
+            <ul class="status-list">
+              <li class="is-on"><span>Disponible</span>Bateaux du jour sur une carte, avec l'heure de chaque position</li>
+              <li class="is-on"><span>Disponible</span>Trajet de la sortie, temps de retour, bateaux qui doivent rentrer ou en retard</li>
+              <li class="is-on"><span>Disponible</span>Appel du client d'un geste depuis la fiche</li>
+              <li class="is-soon"><span>Évolution</span>Traceur GPS à bord pour suivre un bateau sans téléphone</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="loc__facts reveal">
+          <div class="fact">
+            <svg class="i"><use href="#i-phone-device"/></svg>
+            <p><strong>Une position vient toujours d'un téléphone à bord.</strong> Celui du client qui a lancé la navigation, ou un téléphone dédié. Sans source GPS à bord, le bateau n'apparaît pas sur la carte.</p>
+          </div>
+          <div class="fact">
+            <svg class="i"><use href="#i-clock"/></svg>
+            <p><strong>Jamais d'ancienne position présentée comme du direct.</strong> Chaque bateau affiche « position il y a X min ». Sur iPhone, la carte web se met à jour tant qu'elle reste ouverte.</p>
+          </div>
+          <div class="fact">
+            <svg class="i"><use href="#i-lock"/></svg>
+            <p><strong>Des données limitées au besoin.</strong> Le suivi démarre à l'initiative du client, le trajet est effacé après 48 h et la dernière position 6 h après la sortie.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Site vitrine -->
+    <section class="section section--sand" id="site" aria-labelledby="site-title">
+      <div class="container split">
+        <div class="split__copy reveal">
+          <p class="eyebrow"><svg class="i"><use href="#i-globe"/></svg>Le site vitrine</p>
+          <h2 id="site-title">Un site qui présente votre flotte et prend les réservations.</h2>
+          <p>Votre logo, vos couleurs, vos bateaux. Les disponibilités, les tarifs et les options viennent directement de votre dashboard : ce que voit le client est toujours à jour.</p>
+          <ul class="checks checks--2">
+            <li><svg class="i"><use href="#i-check"/></svg>Présentation de votre activité</li>
+            <li><svg class="i"><use href="#i-check"/></svg>Fiches bateaux et comparatif</li>
+            <li><svg class="i"><use href="#i-check"/></svg>Capacité, permis, équipements</li>
+            <li><svg class="i"><use href="#i-check"/></svg>Tarifs par saison et caution</li>
+            <li><svg class="i"><use href="#i-check"/></svg>Réservation selon les disponibilités</li>
+            <li><svg class="i"><use href="#i-check"/></svg>Options (paddle, bouée…)</li>
+            <li><svg class="i"><use href="#i-check"/></svg>Espace client et dépôt des documents</li>
+            <li><svg class="i"><use href="#i-check"/></svg>Boutons d'appel et contact</li>
+            <li><svg class="i"><use href="#i-check"/></svg>Adapté mobile et tablette</li>
+            <li><svg class="i"><use href="#i-check"/></svg>Référencement technique de base</li>
+          </ul>
+          <p class="note">La personnalisation porte sur votre identité visuelle et les éléments prévus par le produit. Un design entièrement sur mesure ou des fonctionnalités spécifiques font l'objet d'un devis.</p>
+        </div>
+
+        <div class="gallery reveal reveal--late">
+          <div class="gallery__stage">
+            <figure class="browser">
+              <div class="browser__bar" aria-hidden="true"><i></i><i></i><i></i><span id="gallery-url">votre-location.fr</span></div>
+              <button class="zoomable" type="button" data-zoom aria-label="Agrandir la capture">
+                <img id="gallery-img" src="assets/img/site-accueil.webp" width="1600" height="1000" alt="Page d'accueil du site d'un loueur de bateaux à Marseille">
+              </button>
+            </figure>
+            <figure class="phone phone--gallery">
+              <img src="assets/img/site-mobile.webp" width="640" height="1385" alt="Site du loueur affiché sur mobile, avec le formulaire de réservation" loading="lazy">
+            </figure>
+          </div>
+          <div class="gallery__thumbs" role="tablist" aria-label="Pages du site vitrine">
+            <button class="thumb is-active" type="button" role="tab" aria-selected="true" data-src="assets/img/site-accueil.webp" data-url="votre-location.fr" data-alt="Page d'accueil du site d'un loueur de bateaux à Marseille">
+              <svg class="i"><use href="#i-globe"/></svg>Accueil
+            </button>
+            <button class="thumb" type="button" role="tab" aria-selected="false" data-src="assets/img/site-flotte.webp" data-url="votre-location.fr/location" data-alt="Comparatif de la flotte : capacité, permis, moteur, longueur, caution et tarif journée">
+              <svg class="i"><use href="#i-sailboat"/></svg>Flotte et tarifs
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Dashboard -->
+    <section class="section section--dark" id="dashboard" aria-labelledby="dash-title">
+      <div class="container">
+        <div class="section__head section__head--dark reveal">
+          <p class="eyebrow eyebrow--dark"><svg class="i"><use href="#i-dashboard"/></svg>Le dashboard de gestion</p>
+          <h2 id="dash-title">Planning, flotte, clients et argent, au même endroit.</h2>
+          <p>Les opérations de la journée sont centralisées et accessibles depuis un ordinateur, une tablette ou un téléphone, par vous et votre équipe.</p>
+        </div>
+
+        <div class="tabs reveal">
+          <div class="tabs__list" role="tablist" aria-label="Modules du dashboard">
+            <button class="tab is-active" type="button" role="tab" id="tab-1" aria-controls="panel-1" aria-selected="true"><svg class="i"><use href="#i-calendar"/></svg><span>Planning</span></button>
+            <button class="tab" type="button" role="tab" id="tab-2" aria-controls="panel-2" aria-selected="false" tabindex="-1"><svg class="i"><use href="#i-radio"/></svg><span>En mer</span></button>
+            <button class="tab" type="button" role="tab" id="tab-3" aria-controls="panel-3" aria-selected="false" tabindex="-1"><svg class="i"><use href="#i-sailboat"/></svg><span>Flotte & tarifs</span></button>
+            <button class="tab" type="button" role="tab" id="tab-4" aria-controls="panel-4" aria-selected="false" tabindex="-1"><svg class="i"><use href="#i-clipboard"/></svg><span>Clients & départs</span></button>
+            <button class="tab" type="button" role="tab" id="tab-5" aria-controls="panel-5" aria-selected="false" tabindex="-1"><svg class="i"><use href="#i-euro"/></svg><span>Finances</span></button>
+            <button class="tab" type="button" role="tab" id="tab-6" aria-controls="panel-6" aria-selected="false" tabindex="-1"><svg class="i"><use href="#i-map"/></svg><span>Carte & zones</span></button>
+            <button class="tab" type="button" role="tab" id="tab-7" aria-controls="panel-7" aria-selected="false" tabindex="-1"><svg class="i"><use href="#i-key"/></svg><span>Équipe & réglages</span></button>
+          </div>
+
+          <div class="tabs__panels">
+            <div class="panel is-active" role="tabpanel" id="panel-1" aria-labelledby="tab-1">
+              <div class="panel__copy">
+                <h3>La journée et la saison d'un coup d'œil</h3>
+                <p>Chaque bateau, chaque créneau : vous voyez ce qui est réservé, libre ou à valider, et vous réservez un créneau libre en un clic pour un client au téléphone.</p>
+                <ul class="checks checks--dark">
+                  <li><svg class="i"><use href="#i-check"/></svg>Sorties du jour, à venir, à valider et CA à venir</li>
+                  <li><svg class="i"><use href="#i-check"/></svg>Planning par bateau et par créneau (journée, demi-journée, soirée)</li>
+                  <li><svg class="i"><use href="#i-check"/></svg>Un bateau ne peut pas être réservé deux fois sur le même créneau</li>
+                  <li><svg class="i"><use href="#i-check"/></svg>Fermetures : maintenance, météo, sortie privée</li>
+                </ul>
+              </div>
+              <button class="browser browser--panel zoomable" type="button" data-zoom aria-label="Agrandir la capture">
+                <img src="assets/img/dash-planning.webp" width="1600" height="1000" alt="Planning des disponibilités par bateau et par créneau, avec indicateurs du jour" loading="lazy">
+              </button>
+            </div>
+
+            <div class="panel" role="tabpanel" id="panel-2" aria-labelledby="tab-2" hidden>
+              <div class="panel__copy">
+                <h3>Les bateaux du jour, sur une carte</h3>
+                <p>Les positions partagées par les téléphones à bord s'affichent sur la carte officielle, avec le trajet, le temps de retour et l'heure de la dernière position.</p>
+                <ul class="checks checks--dark">
+                  <li><svg class="i"><use href="#i-check"/></svg>Statuts : en mer, doit rentrer, en retard</li>
+                  <li><svg class="i"><use href="#i-check"/></svg>Distance du port et temps de retour estimé</li>
+                  <li><svg class="i"><use href="#i-check"/></svg>« Position il y a X min » pour chaque bateau</li>
+                  <li><svg class="i"><use href="#i-check"/></svg>Appel du client et fiche en un clic</li>
+                </ul>
+              </div>
+              <button class="browser browser--panel zoomable" type="button" data-zoom aria-label="Agrandir la capture">
+                <img src="assets/img/dash-sea.webp" width="1600" height="1000" alt="Carte des bateaux en mer avec leurs trajets, et liste des bateaux qui doivent rentrer" loading="lazy">
+              </button>
+            </div>
+
+            <div class="panel" role="tabpanel" id="panel-3" aria-labelledby="tab-3" hidden>
+              <div class="panel__copy">
+                <h3>Votre flotte, vos règles</h3>
+                <p>Chaque navire a sa fiche : elle alimente le site, le planning et la carte en mer. Masquez un bateau, il n'est plus réservable.</p>
+                <ul class="checks checks--dark">
+                  <li><svg class="i"><use href="#i-check"/></svg>Type, capacité autorisée, permis, motorisation, équipements</li>
+                  <li><svg class="i"><use href="#i-check"/></svg>Caution et carburant inclus ou non</li>
+                  <li><svg class="i"><use href="#i-check"/></svg>Créneaux proposés et tarifs par période</li>
+                  <li><svg class="i"><use href="#i-check"/></svg>Options avec stock (paddle, bouée, wakeboard…)</li>
+                </ul>
+              </div>
+              <button class="browser browser--panel zoomable" type="button" data-zoom aria-label="Agrandir la capture">
+                <img src="assets/img/dash-boats.webp" width="1600" height="1000" alt="Fiches des navires avec type, capacité, permis et caution" loading="lazy">
+              </button>
+            </div>
+
+            <div class="panel" role="tabpanel" id="panel-4" aria-labelledby="tab-4" hidden>
+              <div class="panel__copy">
+                <h3>Une fiche pour valider, partir et rentrer</h3>
+                <p>Le client dépose son permis et sa pièce d'identité depuis son espace. Vous contrôlez tout dans la fiche, puis vous validez : il est prévenu par e-mail.</p>
+                <ul class="checks checks--dark">
+                  <li><svg class="i"><use href="#i-check"/></svg>Documents vérifiés, caution reçue, paiement et moyen de paiement</li>
+                  <li><svg class="i"><use href="#i-check"/></svg>Carburant au retour, caution restituée ou retenue</li>
+                  <li><svg class="i"><use href="#i-check"/></svg>Historique des actions et fiches clients</li>
+                  <li><svg class="i"><use href="#i-check"/></svg>Documents supprimés automatiquement après la durée choisie</li>
+                </ul>
+                <p class="note note--dark">Bientôt : état des lieux au départ et au retour, avec checklist, photos et signature.</p>
+              </div>
+              <button class="browser browser--panel zoomable" type="button" data-zoom aria-label="Agrandir la capture">
+                <img src="assets/img/dash-sheet.webp" width="1600" height="1000" alt="Fiche de réservation : créneau, passagers, total, caution, client, validation et documents" loading="lazy">
+              </button>
+            </div>
+
+            <div class="panel" role="tabpanel" id="panel-5" aria-labelledby="tab-5" hidden>
+              <div class="panel__copy">
+                <h3>Chiffre d'affaires, encaissements et carburant</h3>
+                <p>Sur la période de votre choix : ce que chaque bateau rapporte, ce qui est encaissé, ce que coûte le carburant et ce qui reste.</p>
+                <ul class="checks checks--dark">
+                  <li><svg class="i"><use href="#i-check"/></svg>CA brut, encaissé, carburant et net estimé</li>
+                  <li><svg class="i"><use href="#i-check"/></svg>Détail par bateau et par mois</li>
+                  <li><svg class="i"><use href="#i-check"/></svg>Occupation de la flotte, réservations du site ou de l'équipe</li>
+                  <li><svg class="i"><use href="#i-check"/></svg>Export Excel / CSV</li>
+                </ul>
+                <p class="note note--dark">Des indicateurs de gestion, pas une comptabilité : le dashboard ne remplace pas votre logiciel comptable ni vos déclarations fiscales.</p>
+              </div>
+              <button class="browser browser--panel zoomable" type="button" data-zoom aria-label="Agrandir la capture">
+                <img src="assets/img/dash-finance.webp" width="1600" height="1000" alt="Chiffre d'affaires, encaissements et carburant par bateau" loading="lazy">
+              </button>
+            </div>
+
+            <div class="panel" role="tabpanel" id="panel-6" aria-labelledby="tab-6" hidden>
+              <div class="panel__copy">
+                <h3>La carte officielle, plus vos propres conseils</h3>
+                <p>La carte en mer affiche la réglementation officielle. Vous y ajoutez vos zones : elles apparaissent chez le client et déclenchent une alerte s'il y entre.</p>
+                <ul class="checks checks--dark">
+                  <li><svg class="i"><use href="#i-check"/></svg>Zones conseillées, de prudence ou interdites</li>
+                  <li><svg class="i"><use href="#i-check"/></svg>Par type de bateau (avec ou sans permis)</li>
+                  <li><svg class="i"><use href="#i-check"/></svg>Position du port, déplaçable sur la carte</li>
+                  <li><svg class="i"><use href="#i-check"/></svg>Vitesses et marge pour le temps de retour</li>
+                </ul>
+              </div>
+              <button class="browser browser--panel zoomable" type="button" data-zoom aria-label="Agrandir la capture">
+                <img src="assets/img/dash-zones.webp" width="1600" height="1000" alt="Éditeur de zones sur la carte : zone conseillée pour le bateau sans permis et zone de prudence" loading="lazy">
+              </button>
+            </div>
+
+            <div class="panel" role="tabpanel" id="panel-7" aria-labelledby="tab-7" hidden>
+              <div class="panel__copy">
+                <h3>Chacun accède à ce dont il a besoin</h3>
+                <p>Le gérant administre tout. Les employés gèrent le planning, les clients et les validations, sans toucher aux tarifs ni aux réglages.</p>
+                <ul class="checks checks--dark">
+                  <li><svg class="i"><use href="#i-check"/></svg>Rôles : administrateur, employé, client</li>
+                  <li><svg class="i"><use href="#i-check"/></svg>Connexion Google ou code reçu par e-mail</li>
+                  <li><svg class="i"><use href="#i-check"/></svg>Réservation en ligne activable, délai maximum de réservation</li>
+                  <li><svg class="i"><use href="#i-check"/></svg>E-mails de confirmation et de notification</li>
+                </ul>
+              </div>
+              <button class="browser browser--panel zoomable" type="button" data-zoom aria-label="Agrandir la capture">
+                <img src="assets/img/dash-users.webp" width="1600" height="1000" alt="Gestion des comptes de l'équipe et de leurs rôles" loading="lazy">
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Parcours client -->
+    <section class="section journey" aria-labelledby="journey-title">
+      <div class="container">
+        <div class="section__head reveal">
+          <p class="eyebrow">Le parcours de votre client</p>
+          <h2 id="journey-title">Sept étapes, un seul outil.</h2>
+          <p>De la découverte de votre flotte jusqu'au retour au port, chaque étape est prise en charge par la plateforme.</p>
+        </div>
+        <ol class="journey__steps reveal">
+          <li><span class="journey__num">01</span><strong>Choisir son bateau</strong><small>Capacités, tarifs, permis et équipements comparés.</small></li>
+          <li><span class="journey__num">02</span><strong>Réserver son créneau</strong><small>Disponibilités réelles et options.</small></li>
+          <li><span class="journey__num">03</span><strong>Recevoir la confirmation</strong><small>Récapitulatif et point de rendez-vous par e-mail.</small></li>
+          <li><span class="journey__num">04</span><strong>Rejoindre le port</strong><small>Itinéraire vers le port depuis le téléphone.</small><span class="pill pill--soon pill--xs">« Me localiser » bientôt</span></li>
+          <li><span class="journey__num">05</span><strong>Effectuer le départ</strong><small>Documents vérifiés, caution, consignes.</small><span class="pill pill--soon pill--xs">État des lieux photo bientôt</span></li>
+          <li><span class="journey__num">06</span><strong>Suivre la location</strong><small>Carte en mer, rappels, appel du loueur.</small></li>
+          <li><span class="journey__num">07</span><strong>Rendre le bateau</strong><small>Carburant, caution, clôture de la réservation.</small></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Feuille de route -->
+    <section class="section section--sand" aria-labelledby="roadmap-title">
+      <div class="container roadmap">
+        <div class="roadmap__head reveal">
+          <p class="eyebrow"><svg class="i"><use href="#i-route"/></svg>Évolutions incluses</p>
+          <h2 id="roadmap-title">Déjà en mer, et ça continue.</h2>
+          <p>Les évolutions du logiciel font partie de l'abonnement. Une fonction n'est annoncée comme disponible qu'une fois livrée et testée.</p>
+        </div>
+        <div class="roadmap__cols">
+          <div class="roadmap__col reveal">
+            <h3><svg class="i"><use href="#i-check"/></svg>Déjà en place</h3>
+            <ul>
+              <li>Réservation en ligne sans double réservation d'un bateau</li>
+              <li>Carte officielle, alertes de zone et de vitesse, temps de retour par la mer</li>
+              <li>Suivi GPS écran éteint avec l'application Android</li>
+              <li>Onglet « En mer » : positions, trajets, retours et retards</li>
+              <li>Validation documents, caution et paiement dans une fiche</li>
+              <li>CA, encaissements, carburant et export CSV</li>
+            </ul>
+          </div>
+          <div class="roadmap__col roadmap__col--next reveal">
+            <h3><svg class="i"><use href="#i-clock"/></svg>Prochaines évolutions</h3>
+            <ul class="roadmap__next">
+              <li><span class="prio prio--1">Priorité 1</span>Bouton « Me localiser » et itinéraire vers le port dans l'espace client</li>
+              <li><span class="prio prio--1">Priorité 1</span>Planning et départs / retours encore plus rapides au quotidien</li>
+              <li><span class="prio prio--2">Priorité 2</span>État des lieux avec checklist, photos et signature</li>
+              <li><span class="prio prio--2">Priorité 2</span>Carte de flotte alimentée par un traceur GPS ou un téléphone dédié</li>
+              <li><span class="prio prio--3">Priorité 3</span>Alertes de sortie de zone côté équipe et historique des trajets</li>
+              <li><span class="prio prio--3">Priorité 3</span>Notifications automatiques et rapports financiers</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Référence -->
+    <section class="section" id="reference" aria-labelledby="ref-title">
+      <div class="container">
+        <div class="ref reveal">
+          <div class="ref__media">
+            <figure class="browser">
+              <div class="browser__bar" aria-hidden="true"><i></i><i></i><i></i><span>JJ Location Bateaux</span></div>
+              <img src="assets/img/site-flotte.webp" width="1600" height="1000" alt="Comparatif de la flotte sur le site de JJ Location Bateaux" loading="lazy">
+            </figure>
+          </div>
+          <div class="ref__copy">
+            <p class="eyebrow"><svg class="i"><use href="#i-pin"/></svg>Déjà en service</p>
+            <h2 id="ref-title">JJ Location Bateaux, Marseille</h2>
+            <p>Sept bateaux avec ou sans permis, au départ du port de la Madrague de Montredon, aux portes du Parc national des Calanques. Le site, les réservations, la flotte, la carte en mer et le suivi des sorties tournent sur la même plateforme.</p>
+            <p>Visitez leur site, puis ouvrez la carte en mer sur votre téléphone, au port ou en mer, pour la voir en situation.</p>
+            <div class="ref__ctas">
+              <a class="btn btn--primary" href="https://jj-location-bateau.netlify.app/navigation.html" target="_blank" rel="noopener"><svg class="i"><use href="#i-compass"/></svg>Ouvrir la carte en mer</a>
+              <a class="btn btn--ghost" href="https://jj-location-bateau.netlify.app/" target="_blank" rel="noopener"><svg class="i"><use href="#i-external"/></svg>Voir leur site</a>
+            </div>
+            <p class="note">Le dashboard de JJ est privé : les captures de cette page montrent sa véritable interface avec des données fictives. Démonstration complète sur demande.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tarif -->
+    <section class="section section--sand" id="tarif" aria-labelledby="tarif-title">
+      <div class="container">
+        <div class="section__head reveal">
+          <p class="eyebrow"><svg class="i"><use href="#i-euro"/></svg>Tarif</p>
+          <h2 id="tarif-title">Une solution complète, sans frais d'installation.</h2>
+          <p><strong>50 € HT par mois. C'est tout pour votre logiciel.</strong> Pas de frais de création de site, pas de frais de mise en service : un abonnement simple et transparent.</p>
+        </div>
+
+        <div class="pricing">
+          <article class="price-card reveal">
+            <div class="price-card__top">
+              <span class="pill pill--light">Offre unique</span>
+              <span class="pill pill--zero">0 € d'installation</span>
+            </div>
+            <h3>Solution Nautique</h3>
+            <p class="price"><span class="price__amount">50 €</span><span class="price__unit">HT<br>/ mois</span></p>
+            <p class="price-card__sub">Tout le nécessaire pour présenter votre flotte et gérer vos locations.</p>
+            <ul class="checks checks--price">
+              <li><svg class="i"><use href="#i-check"/></svg>Site vitrine personnalisé</li>
+              <li><svg class="i"><use href="#i-check"/></svg>Fiches bateaux et réservation en ligne</li>
+              <li><svg class="i"><use href="#i-check"/></svg>Dashboard de gestion de la flotte</li>
+              <li><svg class="i"><use href="#i-check"/></svg>Planning, validations et suivi des clients</li>
+              <li><svg class="i"><use href="#i-check"/></svg>Carte en mer et suivi des bateaux par téléphone</li>
+              <li><svg class="i"><use href="#i-check"/></svg>Suivi du CA, des encaissements et du carburant</li>
+              <li><svg class="i"><use href="#i-check"/></svg>Gestion de l'équipe selon les rôles disponibles</li>
+              <li><svg class="i"><use href="#i-check"/></svg>Maintenance et hébergement selon le périmètre contractuel</li>
+              <li><svg class="i"><use href="#i-check"/></svg>Évolutions du logiciel selon les modalités annoncées</li>
+            </ul>
+            <a class="btn btn--primary btn--lg btn--block" href="#contact">Demander mon site<svg class="i"><use href="#i-arrow"/></svg></a>
+            <div class="domain">
+              <svg class="i"><use href="#i-globe"/></svg>
+              <p><strong>Nom de domaine : à la charge du client.</strong> Vous payez uniquement sa réservation et son renouvellement, au tarif du prestataire choisi.</p>
+            </div>
+          </article>
+
+          <div class="pricing__side">
+            <div class="recap reveal">
+              <h3>Ce que vous payez</h3>
+              <table class="recap__table">
+                <tbody>
+                  <tr><th scope="row">Création du site</th><td class="is-zero">0 €</td></tr>
+                  <tr><th scope="row">Mise en service</th><td class="is-zero">0 €</td></tr>
+                  <tr><th scope="row">Abonnement logiciel</th><td>50 € HT / mois</td></tr>
+                  <tr><th scope="row">Nom de domaine</th><td>Tarif du prestataire</td></tr>
+                </tbody>
+                <tfoot>
+                  <tr><th scope="row">Sur 12 mois</th><td>600 € HT<small>hors nom de domaine</small></td></tr>
+                </tfoot>
+              </table>
+              <p class="note">Montants hors taxes. La TVA est appliquée selon le régime fiscal en vigueur.</p>
+            </div>
+
+            <div class="extras reveal">
+              <h3>Ce qui reste à part</h3>
+              <ul>
+                <li><svg class="i"><use href="#i-radio"/></svg><span><strong>Matériel GPS</strong> : un traceur à bord (boîtier et abonnement de données) reste à votre charge si vous en équipez vos bateaux.</span></li>
+                <li><svg class="i"><use href="#i-phone-device"/></svg><span><strong>Services tiers payants</strong> : SMS ou autres services externes, précisés avant toute souscription.</span></li>
+                <li><svg class="i"><use href="#i-wrench"/></svg><span><strong>Sur devis</strong> : développements spécifiques, design entièrement sur mesure, migrations complexes, référencement avancé.</span></li>
+                <li><svg class="i"><use href="#i-file"/></svg><span><strong>Non compris</strong> : comptabilité certifiée et déclarations fiscales.</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Démarrage -->
+    <section class="section" aria-labelledby="start-title">
+      <div class="container">
+        <div class="section__head reveal">
+          <p class="eyebrow">Démarrage</p>
+          <h2 id="start-title">On prépare tout. Vous ajoutez vos bateaux et vos créneaux.</h2>
+          <p>La préparation de votre compte, de votre site et de votre carte est comprise dans l'abonnement.</p>
+        </div>
+        <ol class="steps">
+          <li class="step reveal">
+            <span class="step__num">01</span>
+            <h3>Vos informations</h3>
+            <p>Logo, coordonnées, port de départ, bateaux, tarifs et conditions de location.</p>
+          </li>
+          <li class="step reveal">
+            <span class="step__num">02</span>
+            <h3>Configuration</h3>
+            <p>Identité visuelle, site, flotte, créneaux, port et zones de navigation, compte administrateur.</p>
+          </li>
+          <li class="step reveal">
+            <span class="step__num">03</span>
+            <h3>Prise en main</h3>
+            <p>Présentation du dashboard et de la carte en mer, vérification ensemble que tout fonctionne.</p>
+          </li>
+          <li class="step reveal">
+            <span class="step__num">04</span>
+            <h3>Mise en ligne</h3>
+            <p>Votre site est publié : vos clients réservent, vous gérez vos sorties depuis le dashboard.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section section--sand" id="faq" aria-labelledby="faq-title">
+      <div class="container faq">
+        <div class="faq__head reveal">
+          <p class="eyebrow">Questions fréquentes</p>
+          <h2 id="faq-title">Tout est clair avant de larguer les amarres.</h2>
+          <p>Une autre question ? <a href="#contact">Écrivez-nous</a>, nous vous répondons.</p>
+        </div>
+        <div class="faq__list reveal">
+          <details>
+            <summary>Y a-t-il des frais d'installation ou de création ?<svg class="i"><use href="#i-plus"/></svg></summary>
+            <p>Non. Aucun frais de création de site, d'installation ou de mise en service. Vous payez l'abonnement de 50 € HT par mois et, à part, votre nom de domaine.</p>
+          </details>
+          <details>
+            <summary>Faut-il un boîtier GPS sur chaque bateau ?<svg class="i"><use href="#i-plus"/></svg></summary>
+            <p>Non pour démarrer : la position vient du téléphone du client à bord, quand il lance la carte en mer. Pour suivre un bateau sans téléphone à bord (bateau parti sans le client, par exemple), il faut un traceur GPS ou un téléphone dédié qui transmet sa position : c'est une évolution prévue, et le matériel reste à votre charge.</p>
+          </details>
+          <details>
+            <summary>Ça marche sur iPhone et sur Android ?<svg class="i"><use href="#i-plus"/></svg></summary>
+            <p>La carte en mer fonctionne dans le navigateur de tous les téléphones récents, en HTTPS, avec l'autorisation de localisation : elle se met à jour tant qu'elle reste ouverte. L'application Android ajoute le suivi écran éteint et garde les positions en mémoire quand le réseau coupe. Les modalités de mise à disposition de l'application sont précisées avant souscription.</p>
+          </details>
+          <details>
+            <summary>Et les données de localisation de mes clients ?<svg class="i"><use href="#i-plus"/></svg></summary>
+            <p>La collecte est limitée au besoin : le suivi démarre à l'initiative du client, après une explication, et s'arrête au retour au port. Le trajet est effacé après 48 h, la dernière position 6 h après la sortie, et seule votre équipe connectée y a accès. Vos conditions doivent informer vos clients de ces usages et de ces durées.</p>
+          </details>
+          <details>
+            <summary>Mes clients peuvent-ils payer en ligne ?<svg class="i"><use href="#i-plus"/></svg></summary>
+            <p>La réservation se fait sans paiement à l'avance. Les paiements (espèces, carte, chèque, virement) et la caution sont enregistrés dans la fiche de réservation. Le paiement en ligne n'est pas compris aujourd'hui.</p>
+          </details>
+          <details>
+            <summary>Les rappels par SMS sont-ils inclus ?<svg class="i"><use href="#i-plus"/></svg></summary>
+            <p>Les confirmations partent par e-mail, et les rappels de fin de location s'affichent sur le téléphone du client pendant la sortie. L'envoi de SMS passe par un service tiers dont le coût est facturé séparément ; il vous est précisé avant toute souscription.</p>
+          </details>
+          <details>
+            <summary>Le dashboard remplace-t-il ma comptabilité ?<svg class="i"><use href="#i-plus"/></svg></summary>
+            <p>Non. Il calcule des indicateurs de gestion (CA, encaissements, carburant, net estimé) et permet un export CSV, mais il ne remplace ni un logiciel comptable, ni une comptabilité certifiée, ni vos déclarations fiscales.</p>
+          </details>
+          <details>
+            <summary>J'ai plusieurs ports ou bases, est-ce possible ?<svg class="i"><use href="#i-plus"/></svg></summary>
+            <p>Le port de départ et de retour se règle dans le dashboard. L'offre comprend un site par entreprise : les conditions pour plusieurs bases sont étudiées et précisées avec vous avant souscription.</p>
+          </details>
+          <details>
+            <summary>Que couvrent l'hébergement et la maintenance ?<svg class="i"><use href="#i-plus"/></svg></summary>
+            <p>L'hébergement, les sauvegardes, les mises à jour et l'assistance sont assurés selon le périmètre défini dans les conditions contractuelles, qui précisent les délais de prise en charge et les modalités de contact du support.</p>
+          </details>
+          <details>
+            <summary>Mes données m'appartiennent-elles ?<svg class="i"><use href="#i-plus"/></svg></summary>
+            <p>Oui, les informations que vous fournissez restent les vôtres. Les conditions de restitution de vos données en fin de contrat, ainsi que les modalités de résiliation, sont détaillées dans le contrat.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="section section--dark contact" id="contact" aria-labelledby="contact-title">
+      <div class="container contact__grid">
+        <div class="contact__copy reveal">
+          <p class="eyebrow eyebrow--dark">Parlons de votre flotte</p>
+          <h2 id="contact-title">Votre site, votre flotte et votre carte en mer, sans frais d'installation.</h2>
+          <p>Dites-nous qui vous êtes : nous revenons vers vous pour une démonstration et la préparation de votre espace.</p>
+          <ul class="contact__points">
+            <li><svg class="i"><use href="#i-check"/></svg>50 € HT par mois, une seule formule</li>
+            <li><svg class="i"><use href="#i-check"/></svg>Mise en place comprise</li>
+            <li><svg class="i"><use href="#i-check"/></svg>Seul coût en plus : votre nom de domaine</li>
+          </ul>
+        </div>
+        <form class="form reveal reveal--late" id="contact-form" novalidate>
+          <div class="form__row">
+            <label class="field">Nom et prénom<input class="input" name="nom" autocomplete="name" required></label>
+            <label class="field">Entreprise<input class="input" name="entreprise" autocomplete="organization" required></label>
+          </div>
+          <div class="form__row">
+            <label class="field">Téléphone<input class="input" name="telephone" type="tel" autocomplete="tel" required></label>
+            <label class="field">E-mail<input class="input" name="email" type="email" autocomplete="email" required></label>
+          </div>
+          <div class="form__row">
+            <label class="field">Port ou ville<input class="input" name="ville" autocomplete="address-level2"></label>
+            <label class="field">Nombre de bateaux
+              <select class="input" name="activite">
+                <option>1 à 3 bateaux</option>
+                <option>4 à 8 bateaux</option>
+                <option>9 bateaux ou plus</option>
+                <option>Je démarre mon activité</option>
+              </select>
+            </label>
+          </div>
+          <label class="field">Votre message<textarea class="input" name="message" rows="4" placeholder="Vos bateaux, avec ou sans permis, vos créneaux, vos questions…"></textarea></label>
+          <p class="form__error" id="form-error" role="alert" hidden>Merci de remplir votre nom, votre entreprise, votre téléphone et un e-mail valide.</p>
+          <button class="btn btn--primary btn--lg btn--block" type="submit"><svg class="i"><use href="#i-mail"/></svg>Envoyer ma demande</button>
+          <p class="form__note">Votre logiciel de messagerie s'ouvre avec la demande pré-remplie.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <img src="assets/favicon.svg" width="32" height="32" alt="">
+        <span>Solution<strong>Nautique</strong></span>
+      </div>
+      <p>Site vitrine, gestion de flotte et carte en mer pour les loueurs de bateaux.</p>
+      <p class="footer__legal">© <span id="year">2026</span> Solution Nautique · Tarifs hors taxes.</p>
+    </div>
+  </footer>
+
+  <!-- Agrandissement des captures -->
+  <dialog class="lightbox" id="lightbox" aria-label="Capture agrandie">
+    <button class="lightbox__close" type="button" aria-label="Fermer"><svg class="i"><use href="#i-x"/></svg></button>
+    <img alt="">
+  </dialog>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
